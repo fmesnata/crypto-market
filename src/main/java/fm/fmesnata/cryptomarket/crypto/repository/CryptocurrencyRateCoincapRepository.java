@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface CryptocurrencyRateCoincapRepository {
     Flux<Cryptocurrency> findAll();
-    Mono<Cryptocurrency> findByCode(String code);
+    Mono<Cryptocurrency> findByName(String code);
 }

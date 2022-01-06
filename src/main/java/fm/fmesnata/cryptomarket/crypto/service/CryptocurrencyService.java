@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 public interface CryptocurrencyService {
     Flux<CryptocurrencyDTO> listAll();
 
-    Mono<CryptocurrencyDTO> findByCode(String code);
+    Mono<CryptocurrencyDTO> findByName(String name);
 }

@@ -1,6 +1,5 @@
 package fm.fmesnata.cryptomarket.crypto.service.impl;
 
-import fm.fmesnata.cryptomarket.crypto.exception.CryptocurrencyNotFoundException;
 import fm.fmesnata.cryptomarket.crypto.repository.CryptocurrencyRateCoincapRepository;
 import fm.fmesnata.cryptomarket.crypto.service.CryptocurrencyDTO;
 import fm.fmesnata.cryptomarket.crypto.service.CryptocurrencyService;
@@ -18,22 +17,10 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
         this.cryptocurrencyRateCoincapRepository = cryptocurrencyRateCoincapRepository;
     }
 
-//    @Override
-//    public Flux<CryptocurrencyDTO> listAll() {
-//        return Flux.fromIterable(cryptocurrencyRateRepository.findAll())
-//                .map(cryptocurrency -> new CryptocurrencyDTO(
-//                        cryptocurrency.getCryptoId(),
-//                        cryptocurrency.getName(),
-//                        cryptocurrency.getCode(),
-//                        cryptocurrency.getPrice())
-//                );
-//    }
-
     @Override
     public Flux<CryptocurrencyDTO> listAll() {
         return cryptocurrencyRateCoincapRepository.findAll()
                 .map(cryptocurrency -> new CryptocurrencyDTO(
-                        1L,
                         cryptocurrency.getName(),
                         cryptocurrency.getCode(),
                         cryptocurrency.getPrice())
@@ -41,10 +28,9 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     }
 
     @Override
-    public Mono<CryptocurrencyDTO> findByCode(String code) {
-        return cryptocurrencyRateCoincapRepository.findByCode(code)
+    public Mono<CryptocurrencyDTO> findByName(String name) {
+        return cryptocurrencyRateCoincapRepository.findByName(name)
                 .map(cryptocurrency -> new CryptocurrencyDTO(
-                        cryptocurrency.getCryptoId(),
                         cryptocurrency.getName(),
                         cryptocurrency.getCode(),
                         cryptocurrency.getPrice())
