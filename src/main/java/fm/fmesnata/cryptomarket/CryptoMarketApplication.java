@@ -6,14 +6,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import reactor.blockhound.BlockHound;
 
 @SpringBootApplication
-@EnableScheduling
 public class CryptoMarketApplication {
 
     public static void main(String[] args) {
         //BlockHound.install();
         SpringApplication.run(CryptoMarketApplication.class, args);
     }
-
-
 
 }

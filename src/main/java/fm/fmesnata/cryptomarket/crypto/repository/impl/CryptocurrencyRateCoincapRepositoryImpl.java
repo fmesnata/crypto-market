@@ -1,7 +1,8 @@
-package fm.fmesnata.cryptomarket.crypto.repository;
+package fm.fmesnata.cryptomarket.crypto.repository.impl;
 
 import fm.fmesnata.cryptomarket.crypto.exception.CryptocurrencyNotFoundException;
 import fm.fmesnata.cryptomarket.crypto.model.Cryptocurrency;
+import fm.fmesnata.cryptomarket.crypto.repository.CryptocurrencyRateCoincapRepository;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -79,4 +80,3 @@ record DataList(List<CoincapCryptocurrency> data) {
 
 record DataValue(CoincapCryptocurrency data) {
 }
-

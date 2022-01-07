@@ -1,14 +1,9 @@
 package fm.fmesnata.cryptomarket.crypto.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-//@Entity
 public class Cryptocurrency {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "crypto_id")
     private Long cryptoId;
 
     private String name;
