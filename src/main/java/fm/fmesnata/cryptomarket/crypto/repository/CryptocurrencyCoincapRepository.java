@@ -4,7 +4,7 @@ import fm.fmesnata.cryptomarket.crypto.model.Cryptocurrency;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface CryptocurrencyRateCoincapRepository {
+public interface CryptocurrencyCoincapRepository {
     Flux<Cryptocurrency> findAll();
     Mono<Cryptocurrency> findByName(String code);
 }

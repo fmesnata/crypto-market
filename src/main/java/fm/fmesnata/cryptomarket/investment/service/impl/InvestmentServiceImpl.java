@@ -4,7 +4,7 @@ import fm.fmesnata.cryptomarket.account.exception.AccountNotFoundException;
 import fm.fmesnata.cryptomarket.account.model.Account;
 import fm.fmesnata.cryptomarket.account.repository.AccountRepository;
 import fm.fmesnata.cryptomarket.crypto.model.Cryptocurrency;
-import fm.fmesnata.cryptomarket.crypto.repository.CryptocurrencyRateCoincapRepository;
+import fm.fmesnata.cryptomarket.crypto.repository.CryptocurrencyCoincapRepository;
 import fm.fmesnata.cryptomarket.investment.InvestmentDto;
 import fm.fmesnata.cryptomarket.investment.exception.BalanceInsufficientException;
 import fm.fmesnata.cryptomarket.investment.exception.InsufficientQuantityException;
@@ -30,16 +30,16 @@ public class InvestmentServiceImpl implements InvestmentService {
     private final InvestmentRepository investmentRepository;
     private final AccountRepository accountRepository;
     private final TransactionTemplate transactionTemplate;
-    private final CryptocurrencyRateCoincapRepository cryptocurrencyRateCoincapRepository;
+    private final CryptocurrencyCoincapRepository cryptocurrencyCoincapRepository;
 
     public InvestmentServiceImpl(InvestmentRepository investmentRepository,
                                  AccountRepository accountRepository,
                                  TransactionTemplate transactionTemplate,
-                                 CryptocurrencyRateCoincapRepository cryptocurrencyRateCoincapRepository) {
+                                 CryptocurrencyCoincapRepository cryptocurrencyCoincapRepository) {
         this.investmentRepository = investmentRepository;
         this.accountRepository = accountRepository;
         this.transactionTemplate = transactionTemplate;
-        this.cryptocurrencyRateCoincapRepository = cryptocurrencyRateCoincapRepository;
+        this.cryptocurrencyCoincapRepository = cryptocurrencyCoincapRepository;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class InvestmentServiceImpl implements InvestmentService {
 
     @Override
     public Mono<Void> invest(InvestRequest investRequest) {
-        return cryptocurrencyRateCoincapRepository.findByName(investRequest.cryptocurrency())
+        return cryptocurrencyCoincapRepository.findByName(investRequest.cryptocurrency())
                 .zipWhen(cryptocurrency -> Mono.fromCallable(() -> transactionTemplate.execute(status -> {
                             Account account = accountRepository
                                     .findById(investRequest.accountId())
@@ -135,7 +135,7 @@ public class InvestmentServiceImpl implements InvestmentService {
     public Mono<Void> sell(SaleRequest saleRequest) {
 //        Mono<Cryptocurrency> cryptocurrencyMono = Mono.just(cryptocurrencyRateRepository.findByCode(saleRequest.cryptocurrency()))
 //                .map(cryptocurrency -> cryptocurrency.orElseThrow(CryptocurrencyNotFoundException::new));
-        Mono<Cryptocurrency> cryptocurrencyMono = cryptocurrencyRateCoincapRepository.findByName(saleRequest.cryptocurrency());
+        Mono<Cryptocurrency> cryptocurrencyMono = cryptocurrencyCoincapRepository.findByName(saleRequest.cryptocurrency());
         Mono<Account> accountMono = Mono.just(accountRepository.findById(saleRequest.accountId()))
                 .map(account -> account.orElseThrow(AccountNotFoundException::new));
 
